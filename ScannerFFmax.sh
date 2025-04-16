@@ -148,7 +148,7 @@ check_latest_mreplay_file() {
 check_obb_file_comparison() {
   echo -e "${YELLOW}[OBB] Comparando data/hora do replay e .obb...${RESET}"
 
-  replay_dir="/sdcard/Android/data/com.dts.freefireth/files/MReplays"
+  replay_dir="/sdcard/Android/data/com.dts.freefiremax/files/MReplays"
   obb_file="/storage/emulated/0/Android/obb/com.dts.freefiremax/"
 
   # Verificar o arquivo mais recente de replay
