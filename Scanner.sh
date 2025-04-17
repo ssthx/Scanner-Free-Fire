@@ -35,7 +35,7 @@ check_root_status() {
   elif [ -n "$ksu_next" ]; then
     echo -e "${RED}[Root] KSU Next Detectado!${RESET}" | tee -a "$LOG_FILE"
   else
-    echo -e "${GREEN}[Root] Nenhum root detectado (uso de shizuko em modo root data 15/09/2024 as 18:16:03 log b13.${RESET}" | tee -a "$LOG_FILE"
+    echo -e "${GREEN}[Root] Nenhum root detectado.${RESET}" | tee -a "$LOG_FILE"
   fi
   echo ""
 }
