@@ -35,7 +35,7 @@ check_root_status() {
   elif [ -n "$ksu_next" ]; then
     echo -e "${RED}[Root] KSU Next Detectado!${RESET}" | tee -a "$LOG_FILE"
   else
-    echo -e "${GREEN}[Root] Nenhum root detectado.${RESET}" | tee -a "$LOG_FILE"
+    echo -e "${GREEN}[Root]Root Detectado.${RESET}" | tee -a "$LOG_FILE"
   fi
   echo ""
 }
