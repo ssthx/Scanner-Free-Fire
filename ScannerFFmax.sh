@@ -335,7 +335,7 @@ check_executable_files() {
 }
 # Verificar alterações em arquivos nos últimos 10 dias
 check_recent_file_changes() {
-  local pasta_alvo="/sdcard/Android/data/com.dts.freefiremax"  # Altere para o caminho desejado
+  local pasta_alvo="/com.dts.freefiremax"  # Altere para o caminho desejado
   echo -e "${YELLOW}[Sistema] Verificando arquivos modificados, criados ou excluídos nos últimos 10 dias em: $pasta_alvo...${RESET}"
 
   if [ ! -d "$pasta_alvo" ]; then
