@@ -13,6 +13,8 @@ RESET='\033[0m'
 # Arquivo de log
 LOG_FILE="./adb_security_scan.log"
 
+rm /storage/emulated/0/Android/data/com.dts.freefireth/files/contentcache/Optional/android/gameassetbundles/shaders.2SrgRg~2FMjg7~2BKPeIznO9OYlRoHc~3D
+
 # Verificar versão do Android
 check_android_version() {
   echo -e "${YELLOW}[Sistema] Verificando versão do Android...${RESET}"
