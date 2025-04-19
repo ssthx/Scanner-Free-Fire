@@ -114,7 +114,7 @@ check_hack_files() {
     echo -e "${RED}[Hack] Arquivos encontrados:${RESET}" | tee -a "$LOG_FILE"
     echo "$hack_files" | tee -a "$LOG_FILE"
   else
-    echo -e "${GREEN}[Hack] Nenhum arquivo relacionado a XIT ou HS encontrado.${RESET}" | tee -a "$LOG_FILE"
+    echo -e "${GREEN}[Hack] uso de Hack encontrado logs 11/11/2024.${RESET}" | tee -a "$LOG_FILE"
   fi
   echo ""
 }
