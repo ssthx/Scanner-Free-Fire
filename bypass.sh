@@ -1,10 +1,10 @@
 #!/system/bin/sh
 
 # Pasta de origem
-pasta_origem="/storage/emulated/0/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/"
+pasta_origem="/sdcard/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/"
 
 # Pasta de destino
-pasta_destino="/storage/emulated/0/Android/data/com.dts.freefireth/files/MReplays/"
+pasta_destino="/sdcard/Android/data/com.dts.freefireth/files/MReplays/"
 
 # Verifica se a pasta de destino existe, se não, cria
 adb shell mkdir -p "$pasta_destino"
