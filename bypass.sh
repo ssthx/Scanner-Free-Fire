@@ -1,45 +1,44 @@
-#!/system/bin/sh
+#!/bin/bash
 
-# Pasta de origem
+# Pasta de origem no dispositivo
 pasta_origem="/sdcard/Android/media/com.whatsapp/WhatsApp/Media/WhatsApp Documents/"
 
-# Pasta de destino
+# Pasta de destino no dispositivo
 pasta_destino="/sdcard/Android/data/com.dts.freefireth/files/MReplays/"
 
-# Verifica se a pasta de destino existe, se não, cria
-adb shell mkdir -p "$pasta_destino"
+# Cria a pasta de destino, se não existir
+adb shell "mkdir -p '$pasta_destino'"
 
-# Loop infinito para mover arquivos periodicamente
-while true
-do
-  for arquivo in $(adb shell ls "$pasta_origem"); do
-    # Verifica se o arquivo tem extensão .bin ou .json
-    case "$arquivo" in
-      *.bin|*.json)
-        # Extrai o nome do arquivo
-        nome_arquivo=$(basename "$arquivo")
-        
-        # Extrair data e hora do nome (formato: YYYY-MM-DD-HH-MM-SS_nome.ext)
-        dataehora=$(echo "$nome_arquivo" | cut -d'_' -f1 | tr -d '-' | cut -c1-14)
+# Loop infinito
+while true; do
+  # Lista os arquivos na pasta de origem
+  arquivos=$(adb shell "ls '$pasta_origem'" 2>/dev/null)
 
-        if [ "$(echo $dataehora | wc -c)" -eq 15 ]; then
-          # Formato para data e hora
-          dataehora_com_ponto="$(echo $dataehora | cut -c1-12).$(echo $dataehora | cut -c13-14)"
+  # Itera sobre os arquivos
+  for arquivo in $arquivos; do
+    if [[ "$arquivo" == *.bin || "$arquivo" == *.json ]]; then
+      # Extrai nome base do arquivo
+      nome_arquivo=$(basename "$arquivo")
 
-          # Move o arquivo para a pasta de destino
-          adb shell mv "$pasta_origem/$nome_arquivo" "$pasta_destino/"
+      # Extrai data e hora (formato: YYYYMMDDHHMMSS)
+      dataehora=$(echo "$nome_arquivo" | cut -d'_' -f1 | tr -d '-' | cut -c1-14)
 
-          # Tenta alterar a data de modificação (pode não funcionar em /sdcard)
-          adb shell touch -t "$dataehora_com_ponto" "$pasta_destino/$nome_arquivo" 2>/dev/null
+      if [ "${#dataehora}" -eq 14 ]; then
+        # Converte para o formato do comando touch (YYYYMMDDHHMM.SS)
+        dataehora_formatado="$(echo "$dataehora" | cut -c1-12).$(echo "$dataehora" | cut -c13-14)"
 
-          echo "Arquivo $nome_arquivo movido para $pasta_destino com timestamp $dataehora_com_ponto"
-        else
-          echo "Erro ao extrair data/hora de $nome_arquivo"
-        fi
-        ;;
-    esac
+        # Move o arquivo
+        adb shell "mv '$pasta_origem/$nome_arquivo' '$pasta_destino/'"
+
+        # Atualiza a data de modificação (pode não funcionar em todos os sistemas de arquivos)
+        adb shell "touch -t '$dataehora_formatado' '$pasta_destino/$nome_arquivo'" 2>/dev/null
+
+        echo "Movido: $nome_arquivo com timestamp $dataehora_formatado"
+      else
+        echo "Erro ao extrair data/hora de: $nome_arquivo"
+      fi
+    fi
   done
 
-  # Aguarda 1 segundo antes de verificar novamente
   sleep 1
 done
